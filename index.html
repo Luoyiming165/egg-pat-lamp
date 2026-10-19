@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#0d1020">
+<title>东东羊拍拍灯 · DongDong Pat Lamp</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow: hidden; }
+
+  body {
+    background: radial-gradient(120% 90% at 50% 40%, #272c4a 0%, #191d34 48%, #0d1020 100%);
+    font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    opacity: 0;
+    transition: opacity .9s ease;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  body.ready { opacity: 1; }
+
+  canvas {
+    display: block;
+    position: fixed;
+    inset: 0;
+    touch-action: none;
+    cursor: grab;
+  }
+  canvas.dragging { cursor: grabbing; }
+
+  #vignette {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 45%, transparent 52%, rgba(4,7,16,0.5) 100%);
+  }
+
+  #ui { position: fixed; inset: 0; pointer-events: none; }
+
+  #title { position: absolute; top: 28px; left: 32px; color: #f5eede; }
+  #title h1 { font-size: 24px; font-weight: 700; letter-spacing: 1px; }
+  #title p { margin-top: 6px; font-size: 12px; color: #9aa3c7; letter-spacing: 3px; }
+
+  #pill {
+    position: absolute; top: 30px; right: 32px;
+    padding: 8px 16px; border-radius: 999px;
+    font-size: 13px; letter-spacing: 1px;
+    backdrop-filter: blur(8px);
+    background: rgba(255,255,255,0.08);
+    color: #c9cfee;
+    border: 1px solid rgba(255,255,255,0.12);
+    transition: all .5s ease;
+  }
+  #pill.on {
+    background: rgba(255,190,110,0.18);
+    color: #ffd9a0;
+    border-color: rgba(255,200,130,0.4);
+    box-shadow: 0 0 18px rgba(255,190,110,0.25);
+  }
+
+  #hint {
+    position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%);
+    color: #aeb6da; font-size: 13px; letter-spacing: 2px;
+    padding: 10px 20px; border-radius: 999px;
+    background: rgba(20,24,44,0.55);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: opacity .8s ease;
+    animation: breath 2.6s ease-in-out infinite;
+    white-space: nowrap;
+  }
+  #hint.gone { opacity: 0; animation: none; }
+  @keyframes breath { 0%, 100% { opacity: .75; } 50% { opacity: 1; } }
+
+  @media (max-width: 640px) {
+    #title { top: 18px; left: 18px; }
+    #title h1 { font-size: 19px; }
+    #pill { top: 20px; right: 18px; }
+    #hint { font-size: 12px; bottom: 24px; }
+  }
+</style>
+</head>
+<body>
+  <div id="vignette"></div>
+  <div id="ui">
+    <div id="title">
+      <h1>🐑 东东羊拍拍灯</h1>
+      <p>DONGDONG PAT LAMP</p>
+    </div>
+    <div id="pill" class="on">💡 开灯啦</div>
+    <div id="hint">👆 拍拍小羊开灯/关灯 · 拖动旋转视角 · 滚轮缩放</div>
+  </div>
+
+  <script src="three.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
